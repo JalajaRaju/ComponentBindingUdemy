@@ -7,24 +7,32 @@ import {FormsModule} from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  serverElements = [];
-  newServerName = '';
-  newServerContent = '';
 
-  onAddServer() {
-    this.serverElements.push({
-      type: 'server',
-      name: this.newServerName,
-      content: this.newServerContent
-    });
-  }
+  serverElements = [{type:'server', name: 'Test Server', content:'Server Content'},
+                  {type:'blueprint',name:'BluePrint',content:'Blue print content!'}];
+
+ OnServerCreated(serverData:{serverName:string,serverContent:string})
+ {
+this.serverElements.push({
+  type:'server',
+  name:serverData.serverName,
+  content:serverData.serverContent});
+ } 
+ 
+ OnBlueprintCreated(serverData:{serverName:string,serverContent:string})
+ {
+  this.serverElements.push({
+    type:'blueprint',
+    name:serverData.serverName,
+    content:serverData.serverContent});
+ }
+
+ OnDelete()
+ {
+   let len : number = this.serverElements.length;
+    this.serverElements.splice(len-1,1);
+ }
+
+
   
-
-  onAddBlueprint() {
-    this.serverElements.push({
-      type: 'blueprint',
-      name: this.newServerName,
-      content: this.newServerContent
-    });
-  }
 }
